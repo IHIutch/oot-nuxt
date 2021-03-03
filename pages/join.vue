@@ -183,7 +183,7 @@ export default {
         categories,
       } = this.form
       this.$axios
-        .$post('/api/mentor', {
+        .$post(`${this.$config.baseURL}/api/mentor`, {
           firstName,
           lastName,
           email,

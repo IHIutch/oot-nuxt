@@ -1,6 +1,12 @@
 import redirectSSL from 'redirect-ssl'
 
 export default {
+  publicRuntimeConfig: {
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://oot-nuxt.herokuapp.com'
+        : 'http://localhost:3000',
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'test',

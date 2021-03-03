@@ -99,9 +99,9 @@
 <script>
 export default {
   name: 'HomePage',
-  asyncData({ $axios, error }) {
+  asyncData({ $axios, error, $config }) {
     return $axios
-      .$get('/api/mentor')
+      .$get(`${$config.baseURL}/api/mentor`)
       .then((res) => {
         if (res) {
           return {
