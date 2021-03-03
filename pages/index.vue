@@ -63,25 +63,25 @@
       <div class="mb-5 pt-3">
         <b-container>
           <b-row>
-            <b-col v-for="(a, idx) in advisors" :key="idx" cols="3">
+            <b-col v-for="(m, idx) in mentors" :key="idx" cols="3">
               <div class="rounded shadow bg-white p-3 h-100 d-flex flex-column">
                 <div class="text-center flex-grow-1">
                   <div class="">
                     <div class="mb-3">
                       <img
                         class="h-20 w-20 rounded-circle object-cover"
-                        :src="a.imageURL"
-                        :alt="a.name"
+                        :src="m.imageURL"
+                        :alt="m.name"
                       />
                     </div>
                     <h2 class="font-weight-bold h3">
-                      {{ a.firstName }} {{ a.lastName }}
+                      {{ m.firstName }} {{ m.lastName }}
                     </h2>
-                    <p class="mb-3">{{ a.description }}</p>
+                    <p class="mb-3">{{ m.description }}</p>
                   </div>
                 </div>
                 <b-button
-                  :href="a.buttonURL"
+                  :href="m.buttonURL"
                   target="_blank"
                   no-referrer
                   no-openner
@@ -104,9 +104,8 @@ export default {
       .$get('api/mentor')
       .then((res) => {
         if (res) {
-          console.log(res)
           return {
-            mentors: '',
+            mentors: res,
           }
         } else {
           throw new Error(error)
@@ -121,27 +120,6 @@ export default {
       form: {
         search: '',
       },
-      advisors: [
-        {
-          firstName: 'Jonathan',
-          lastName: 'Gorczyca',
-          description:
-            'Partner / Co-founder at Helm Experience & Design. Product Design, UX, Technology, Startups, Digital Strategy.',
-          buttonURL: 'https://calendly.com/jonathan-gorczyca/connect',
-          imageURL: 'https://www.openofficetime.com/assets/img/heads/jg.jpg',
-          tags: ['ux design', 'product design', 'startups', 'technology'],
-        },
-        {
-          firstName: 'Nicholas',
-          lastName: 'Barone',
-          description:
-            'I have spent my entire career working to increase the number of technology companies and entrepreneurs in Buffalo, NY',
-          buttonURL: 'https://calendly.com/nb3004',
-          imageURL:
-            'https://www.openofficetime.com/assets/img/heads/82311f376f5d8a12.jpg',
-          tags: ['entrepreneur', 'startups', 'technology'],
-        },
-      ],
     }
   },
 }
