@@ -80,3 +80,4 @@ npx sequelize-cli model:generate --name Mentor --attributes firstName:string,las
 - create new api route
 - get presigned url
 - save url to DB
+- add credentials to heroku
