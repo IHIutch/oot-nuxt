@@ -24,9 +24,13 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
     "redirect-ssl": "^2.0.0",
     "sass": "^1.32.8",
-    "sass-loader": "10"
+    "sass-loader": "10",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
