@@ -172,7 +172,34 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.form)
+      const {
+        firstName,
+        lastName,
+        email,
+        city,
+        description,
+        linkedinURL,
+        bookingURL,
+        categories,
+      } = this.form
+      this.$axios
+        .$post('api/mentor', {
+          firstName,
+          lastName,
+          email,
+          city,
+          description,
+          linkedinURL,
+          bookingURL,
+          categories,
+        })
+        .then((data) => {
+          this.busy = false
+          alert(JSON.stringify(data, null, '\t'))
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
     },
   },
 }

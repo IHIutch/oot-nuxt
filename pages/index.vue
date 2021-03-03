@@ -99,6 +99,23 @@
 <script>
 export default {
   name: 'HomePage',
+  asyncData({ $axios, error }) {
+    return $axios
+      .$get('api/mentor')
+      .then((res) => {
+        if (res) {
+          console.log(res)
+          return {
+            mentors: '',
+          }
+        } else {
+          throw new Error(error)
+        }
+      })
+      .catch((err) => {
+        error({ statusCode: 404, message: err })
+      })
+  },
   data() {
     return {
       form: {
