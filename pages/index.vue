@@ -124,7 +124,9 @@ export default {
   },
   head() {
     return {
-      title: this.mentors ? this.mentors[0].firstName : 'Welcome to MentorDeck',
+      title: this.mentors.length
+        ? this.mentors[0].firstName
+        : 'Welcome to MentorDeck',
       meta: [
         {
           hid: 'description',
@@ -135,7 +137,7 @@ export default {
         {
           hid: 'twitter:title',
           property: 'twitter:title',
-          content: this.mentors
+          content: this.mentors.length
             ? this.mentors[0].firstName
             : 'Welcome to MentorDeck',
         },
