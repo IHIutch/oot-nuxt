@@ -101,7 +101,7 @@ export default {
   name: 'HomePage',
   asyncData({ $axios, error }) {
     return $axios
-      .$get('api/mentor')
+      .$get('/api/mentor')
       .then((res) => {
         if (res) {
           return {
