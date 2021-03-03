@@ -1,3 +1,5 @@
+import redirectSSL from 'redirect-ssl'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -41,4 +43,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Server Middleware:  https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-servermiddleware
+  serverMiddleware: [
+    redirectSSL.create({
+      enabled: process.env.NODE_ENV === 'production',
+    }),
+    // Will register file from project api directory to handle /api/*
+    { path: '/api', handler: '~/api/index' },
+  ],
 }
