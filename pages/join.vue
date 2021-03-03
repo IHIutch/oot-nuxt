@@ -132,6 +132,12 @@
                   ></b-form-checkbox-group>
                 </b-form-group>
 
+                <b-form-file
+                  placeholder="Choose a file or drop it here..."
+                  drop-placeholder="Drop file here..."
+                  @change="onFileChange"
+                ></b-form-file>
+
                 <div class="text-center">
                   <b-button class="mt-3" type="submit" variant="primary"
                     >Submit Your Listing</b-button
@@ -158,6 +164,7 @@ export default {
         'technology',
         'entrepreneur',
       ],
+      image: {},
       form: {
         firstName: '',
         lastName: '',
@@ -171,7 +178,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       const {
         firstName,
         lastName,
@@ -182,6 +189,9 @@ export default {
         bookingURL,
         categories,
       } = this.form
+
+      await this.getSignedUrlAndUpload()
+
       this.$axios
         .$post(`${this.$config.baseURL}/api/mentor`, {
           firstName,
@@ -192,14 +202,46 @@ export default {
           linkedinURL,
           bookingURL,
           categories,
+          imageURL: this.image.path,
         })
         .then((data) => {
-          this.busy = false
           alert(JSON.stringify(data, null, '\t'))
         })
         .catch((err) => {
           throw new Error(err)
         })
+    },
+    async uploadImage(signedUrl, image) {
+      const formData = new FormData()
+      Object.keys(signedUrl.fields).forEach((key) => {
+        formData.append(key, signedUrl.fields[key])
+      })
+      formData.append('Content-Type', image.type)
+      formData.append('file', image.file)
+      return await this.$axios.post('/aws', formData)
+    },
+    async getSignedUrlAndUpload() {
+      try {
+        const data = await this.$axios.$get(
+          `${this.$config.baseURL}/api/upload`
+        )
+        this.image.path = `${this.$config.awsURL}/${data.fields.key}`
+        return await this.uploadImage(data, this.image)
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    onFileChange(e) {
+      const self = this
+      const file = [...e.target.files][0]
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        self.image = {
+          file,
+          type: file.type,
+        }
+      }
+      reader.readAsDataURL(file)
     },
   },
 }

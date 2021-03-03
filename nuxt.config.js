@@ -1,4 +1,5 @@
 import redirectSSL from 'redirect-ssl'
+const awsURL = 'https://s3.us-east-2.amazonaws.com/buffalo311'
 
 export default {
   publicRuntimeConfig: {
@@ -6,6 +7,7 @@ export default {
       process.env.NODE_ENV === 'production'
         ? 'https://oot-nuxt.herokuapp.com'
         : 'http://localhost:3000',
+    awsURL,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -57,7 +59,15 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/aws': {
+      target: awsURL,
+      pathRewrite: { '^/aws': '' },
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

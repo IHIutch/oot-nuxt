@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
     description,
     linkedinURL,
     bookingURL,
+    imageURL,
     categories,
   } = req.body
 
@@ -33,6 +34,7 @@ router.post('/', (req, res) => {
     description,
     linkedinURL,
     bookingURL,
+    imageURL,
     categories,
   })
     .then((data) => {
