@@ -105,7 +105,7 @@ export default {
       .then((res) => {
         if (res) {
           return {
-            mentors: res,
+            mentors: res || [],
           }
         } else {
           throw new Error(error)
@@ -120,6 +120,32 @@ export default {
       form: {
         search: '',
       },
+    }
+  },
+  head() {
+    return {
+      title: this.mentors ? this.mentors[0].firstName : 'Welcome to MentorDeck',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Schedule time with community leaders, mentors, executives, and advisors. The coolest team willing to help you out.',
+        },
+        {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: this.mentors
+            ? this.mentors[0].firstName
+            : 'Welcome to MentorDeck',
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content:
+            'Schedule time with community leaders, mentors, executives, and advisors. The coolest team willing to help you out.',
+        },
+      ],
     }
   },
 }
