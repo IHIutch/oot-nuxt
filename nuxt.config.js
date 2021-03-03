@@ -34,15 +34,27 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics',
   ],
 
+  googleAnalytics: {
+    id: 'G-X8EM3VF55J',
+    dev: process.env.NODE_ENV !== 'production',
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/sentry',
   ],
+
+  sentry: {
+    initialize: process.env.NODE_ENV === 'production',
+    dsn:
+      'https://48d05c23bd234d0abb9f2f18310d50d6@o311837.ingest.sentry.io/5659111',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
